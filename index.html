@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education of Liam Clarke</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: 'JetBrains Mono', monospace;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .education-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .education-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            padding-left: 25px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .education-item:hover {
+            text-decoration: underline;
+        }
+
+        .education-item.selected {
+            text-decoration: underline;
+        }
+
+        .education-item.selected::before {
+            content: '>';
+            position: absolute;
+            left: 5px;
+            color: #666;
+        }
+
+        .education-item .category {
+            color: #666;
+            font-size: 0.9em;
+            margin-left: 8px;
+            display: inline-block;
+        }
+
+        .education-item .date {
+            color: #666;
+            font-size: 0.8em;
+            margin-left: 8px;
+            display: inline-block;
+        }
+
+        .content-page {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content-page.active {
+            display: block;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+            cursor: pointer;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .back-button:hover {
+            text-decoration: underline;
+        }
+
+        .keyboard-hints {
+            color: #666;
+            font-size: 0.8em;
+            max-width: 300px;
+            display: none; /* Hidden by default */
+            margin: 0 auto 20px auto;
+        }
+
+        @media (min-width: 768px) {
+            .keyboard-hints {
+                display: block; /* Show only on desktop */
+            }
+        }
+
+        .keyboard-hints ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .keyboard-hints li {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .keyboard-hints kbd {
+            font-family: 'JetBrains Mono', monospace;
+            color: #333;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="keyboard-hints">
+        <ul>
+            <li><kbd>▲</kbd><kbd>▼</kbd> up/down</li>
+            <li><kbd>↵</kbd> open</li>
+            <li><kbd>esc</kbd> back</li>
+        </ul>
+    </div>
+    <div id="list-container">
+        <ul class="education-list">
+            <li class="education-item" data-id="1" data-date="2024-03">The Pragmatic Programmer <span class="category">[BOOK]</span><span class="date">Mar 2024</span></li>
+            <li class="education-item" data-id="2" data-date="2024-02">Clean Code by Robert C. Martin <span class="category">[BOOK]</span><span class="date">Feb 2024</span></li>
+            <li class="education-item" data-id="3" data-date="2024-01">Design Patterns: Elements of Reusable Object-Oriented Software <span class="category">[BOOK]</span><span class="date">Jan 2024</span></li>
+            <li class="education-item" data-id="4" data-date="2023-12">Harvard CS50: Introduction to Computer Science <span class="category">[COURSE]</span><span class="date">Dec 2023</span></li>
+            <li class="education-item" data-id="5" data-date="2023-11">The Art of Computer Programming <span class="category">[BOOK]</span><span class="date">Nov 2023</span></li>
+            <li class="education-item" data-id="6" data-date="2023-10">Introduction to Algorithms (CLRS) <span class="category">[BOOK]</span><span class="date">Oct 2023</span></li>
+            <li class="education-item" data-id="7" data-date="2023-09">Structure and Interpretation of Computer Programs <span class="category">[BOOK]</span><span class="date">Sep 2023</span></li>
+            <li class="education-item" data-id="8" data-date="2023-08">The Mythical Man-Month <span class="category">[BOOK]</span><span class="date">Aug 2023</span></li>
+            <li class="education-item" data-id="9" data-date="2023-07">Code Complete <span class="category">[BOOK]</span><span class="date">Jul 2023</span></li>
+            <li class="education-item" data-id="10" data-date="2023-06">Refactoring: Improving the Design of Existing Code <span class="category">[BOOK]</span><span class="date">Jun 2023</span></li>
+        </ul>
+    </div>
+
+    <div id="content-container">
+        <div class="content-page" data-id="1">
+            <div class="back-button">← Back to list (ESC)</div>
+            <h2>The Pragmatic Programmer</h2>
+            <p>Key learnings:</p>
+            <ul>
+                <li>DRY (Don't Repeat Yourself) principle</li>
+                <li>Importance of automation</li>
+                <li>Testing early and often</li>
+                <li>Continuous learning and improvement</li>
+            </ul>
+        </div>
+        <!-- More content pages will be added dynamically -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.education-item');
+            let selectedIndex = 0;
+            const contentContainer = document.getElementById('content-container');
+            const listContainer = document.getElementById('list-container');
+
+            // Initialize first item as selected
+            items[0].classList.add('selected');
+
+            // Create content pages for each item
+            items.forEach(item => {
+                const contentPage = document.createElement('div');
+                contentPage.className = 'content-page';
+                contentPage.dataset.id = item.dataset.id;
+                contentPage.innerHTML = `
+                    <div class="back-button">← Back to list</div>
+                    <h2>${item.textContent}</h2>
+                    <p>Key learnings:</p>
+                    <ul>
+                        <li>Important concept 1</li>
+                        <li>Important concept 2</li>
+                        <li>Important concept 3</li>
+                        <li>Personal reflection on the material</li>
+                    </ul>
+                `;
+                contentContainer.appendChild(contentPage);
+            });
+
+            // Handle keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (listContainer.style.display !== 'none') {
+                    switch(e.key) {
+                        case 'ArrowUp':
+                            e.preventDefault();
+                            items[selectedIndex].classList.remove('selected');
+                            selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+                            items[selectedIndex].classList.add('selected');
+                            break;
+                        case 'ArrowDown':
+                            e.preventDefault();
+                            items[selectedIndex].classList.remove('selected');
+                            selectedIndex = (selectedIndex + 1) % items.length;
+                            items[selectedIndex].classList.add('selected');
+                            break;
+                        case 'Enter':
+                            showContent(items[selectedIndex].dataset.id);
+                            break;
+                    }
+                } else if (e.key === 'Escape') {
+                    showList();
+                }
+            });
+
+            // Handle item clicks
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    showContent(item.dataset.id);
+                });
+            });
+
+            // Handle back button clicks
+            document.querySelectorAll('.back-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    showList();
+                });
+            });
+
+            function showContent(id) {
+                listContainer.style.display = 'none';
+                document.querySelectorAll('.content-page').forEach(page => {
+                    page.classList.remove('active');
+                    if (page.dataset.id === id) {
+                        page.classList.add('active');
+                    }
+                });
+            }
+
+            function showList() {
+                listContainer.style.display = 'block';
+                document.querySelectorAll('.content-page').forEach(page => {
+                    page.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
