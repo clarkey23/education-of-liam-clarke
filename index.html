@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Education of Liam Clarke</title>
+    <title>clarkey23</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: white;
-            color: black;
+            background-color: #fdf6e3; /* Solarized light background */
+            color: #586e75; /* Solarized dark text */
             font-family: 'JetBrains Mono', monospace;
             max-width: 800px;
             margin: 40px auto;
@@ -34,31 +34,47 @@
 
         .education-item:hover {
             text-decoration: underline;
+            background-color: #eee8d5; /* Solarized hover background */
         }
 
         .education-item.selected {
             text-decoration: underline;
+            background-color: #eee8d5; /* Solarized selected background */
         }
 
         .education-item.selected::before {
             content: '>';
             position: absolute;
             left: 5px;
-            color: #666;
+            color: #93a1a1; /* Solarized secondary text */
         }
 
         .education-item .category {
-            color: #666;
+            color: #93a1a1; /* Solarized secondary text */
             font-size: 0.9em;
             margin-left: 8px;
             display: inline-block;
         }
 
         .education-item .date {
-            color: #666;
+            color: #93a1a1; /* Solarized secondary text */
             font-size: 0.8em;
             margin-left: 8px;
             display: inline-block;
+        }
+
+        .education-item.pinned {
+            /* No special styling - just the pin icon */
+        }
+
+        .education-item.pinned:hover {
+            text-decoration: underline;
+            background-color: #eee8d5; /* Solarized hover background */
+        }
+
+        .pin-icon {
+            margin-right: 8px;
+            font-size: 0.9em;
         }
 
         .content-page {
@@ -74,16 +90,17 @@
         .back-button {
             margin-bottom: 20px;
             cursor: pointer;
-            color: #666;
+            color: #93a1a1; /* Solarized secondary text */
             font-size: 0.9em;
         }
 
         .back-button:hover {
             text-decoration: underline;
+            color: #586e75; /* Darker on hover */
         }
 
         .keyboard-hints {
-            color: #666;
+            color: #93a1a1; /* Solarized secondary text */
             font-size: 0.8em;
             max-width: 300px;
             display: none; /* Hidden by default */
@@ -114,9 +131,13 @@
 
         .keyboard-hints kbd {
             font-family: 'JetBrains Mono', monospace;
-            color: #333;
+            color: #586e75; /* Solarized dark text */
             font-size: 0.9em;
             font-weight: 500;
+            background-color: #eee8d5; /* Solarized light background */
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid #93a1a1;
         }
 
         @keyframes fadeIn {
@@ -134,63 +155,127 @@
         </ul>
     </div>
     <div id="list-container">
-        <ul class="education-list">
-            <li class="education-item" data-id="1" data-date="2024-03">The Pragmatic Programmer <span class="category">[BOOK]</span><span class="date">Mar 2024</span></li>
-            <li class="education-item" data-id="2" data-date="2024-02">Clean Code by Robert C. Martin <span class="category">[BOOK]</span><span class="date">Feb 2024</span></li>
-            <li class="education-item" data-id="3" data-date="2024-01">Design Patterns: Elements of Reusable Object-Oriented Software <span class="category">[BOOK]</span><span class="date">Jan 2024</span></li>
-            <li class="education-item" data-id="4" data-date="2023-12">Harvard CS50: Introduction to Computer Science <span class="category">[COURSE]</span><span class="date">Dec 2023</span></li>
-            <li class="education-item" data-id="5" data-date="2023-11">The Art of Computer Programming <span class="category">[BOOK]</span><span class="date">Nov 2023</span></li>
-            <li class="education-item" data-id="6" data-date="2023-10">Introduction to Algorithms (CLRS) <span class="category">[BOOK]</span><span class="date">Oct 2023</span></li>
-            <li class="education-item" data-id="7" data-date="2023-09">Structure and Interpretation of Computer Programs <span class="category">[BOOK]</span><span class="date">Sep 2023</span></li>
-            <li class="education-item" data-id="8" data-date="2023-08">The Mythical Man-Month <span class="category">[BOOK]</span><span class="date">Aug 2023</span></li>
-            <li class="education-item" data-id="9" data-date="2023-07">Code Complete <span class="category">[BOOK]</span><span class="date">Jul 2023</span></li>
-            <li class="education-item" data-id="10" data-date="2023-06">Refactoring: Improving the Design of Existing Code <span class="category">[BOOK]</span><span class="date">Jun 2023</span></li>
+        <ul class="education-list" id="education-list">
+            <!-- Pinned readme item -->
+            <li class="education-item pinned" data-id="readme">
+                <span class="pin-icon">🖈</span>
+                README <span class="category">[INFO]</span>
+            </li>
+            <!-- Items will be generated from data -->
         </ul>
     </div>
 
     <div id="content-container">
-        <div class="content-page" data-id="1">
-            <div class="back-button">← Back to list (ESC)</div>
-            <h2>The Pragmatic Programmer</h2>
-            <p>Key learnings:</p>
-            <ul>
-                <li>DRY (Don't Repeat Yourself) principle</li>
-                <li>Importance of automation</li>
-                <li>Testing early and often</li>
-                <li>Continuous learning and improvement</li>
-            </ul>
-        </div>
-        <!-- More content pages will be added dynamically -->
+        <!-- Pinned readme content -->
+        <div class="content-page" data-id="readme">
+            <div class="back-button">← back (esc)</div>
+            <h2>README</h2>
+
+            <p>
+                Hi reader, my name is Liam and this is my lil website.
+            </p>
+            <p>
+                I use it to record ideas that I get out of books or other readings, my own diatribes and any project that gets past my perfectionist barriers
+            </p>
+            <p>
+                You can contact me through email or github or x. 
+            </p>
+        
+        <!-- content pages generated from data -->
     </div>
 
     <script>
+        // ===== new items added here =====
+        const educationData = [
+        {
+                title: "richest man in babylon",
+                category: "BOOK",
+                date: "2025-06-29",
+                contentType: "bullets",
+                content: [
+                    "pay yourself first",
+                    "don't overspend your income",
+                    "take money and invest in assets that provide income",
+                    "don't trust charlatans",
+                    "be determined",
+                ]
+            },
+        {
+                title: "blitzed by norman ohler",
+                category: "BOOK",
+                date: "2025-06-22",
+                contentType: "bullets",
+                content: [
+                    "pharmaceutical companies will make anything and sell to anyone for money. Merck and Bayer manufactured meth and used slave camp labour",
+                    "hitler was off his nut receiving daily injections",
+                    "soldiers were abusing meth",
+                    "officers were abusing meth",
+                    "walking units in concentration camps were given meth to test shoe materials",
+                    "credits methed up no sleeping tank crews with shutting out France in 2 weeks",
+                    "meth & cocaine were both spoke about in strategy meetings for gaining advantage on battlefield",
+                    "solo u-boat hitler youths given meth for 3-day missions"
+                ]
+            },
+        ];
+
+        // ===== APPLICATION CODE (Don't modify below this line) =====
         document.addEventListener('DOMContentLoaded', () => {
-            const items = document.querySelectorAll('.education-item');
-            let selectedIndex = 0;
-            const contentContainer = document.getElementById('content-container');
             const listContainer = document.getElementById('list-container');
+            const contentContainer = document.getElementById('content-container');
+            const educationList = document.getElementById('education-list');
+            let selectedIndex = 0;
+            let items = [];
 
-            // Initialize first item as selected
-            items[0].classList.add('selected');
+            // Sort data by date (newest first)
+            const sortedData = [...educationData].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            // Create content pages for each item
-            items.forEach(item => {
+            // Generate list items
+            sortedData.forEach((item, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'education-item';
+                listItem.dataset.id = index;
+                
+                const date = new Date(item.date);
+                const monthYear = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', day: 'numeric' });
+                
+                listItem.innerHTML = `
+                    ${item.title} 
+                    <span class="category">[${item.category}]</span>
+                    <span class="date">${monthYear}</span>
+                `;
+                
+                educationList.appendChild(listItem);
+                items.push(listItem);
+
+                // Generate content page
                 const contentPage = document.createElement('div');
                 contentPage.className = 'content-page';
-                contentPage.dataset.id = item.dataset.id;
+                contentPage.dataset.id = index;
+                
+                // Render content based on type
+                let contentHTML = '';
+                if (item.contentType === 'bullets') {
+                    contentHTML = `<ul>${item.content.map(content => `<li>${content}</li>`).join('')}</ul>`;
+                } else if (item.contentType === 'paragraphs') {
+                    contentHTML = item.content.map(content => `<p>${content}</p>`).join('');
+                }
+                
                 contentPage.innerHTML = `
-                    <div class="back-button">← Back to list</div>
-                    <h2>${item.textContent}</h2>
-                    <p>Key learnings:</p>
-                    <ul>
-                        <li>Important concept 1</li>
-                        <li>Important concept 2</li>
-                        <li>Important concept 3</li>
-                        <li>Personal reflection on the material</li>
-                    </ul>
+                    <div class="back-button">← back (esc)</div>
+                    <h2>${item.title}</h2>
+                    ${contentHTML}
                 `;
                 contentContainer.appendChild(contentPage);
             });
+
+            // Get all items including the pinned readme
+            const allItems = document.querySelectorAll('.education-item');
+            items = Array.from(allItems);
+
+            // Initialize first item (readme) as selected
+            if (items.length > 0) {
+                items[0].classList.add('selected');
+            }
 
             // Handle keyboard navigation
             document.addEventListener('keydown', (e) => {
